@@ -1,0 +1,7 @@
+contacts:
+  - 09195870197
+  - 09012426716
+smsgateway:
+  url: "http://192.168.86.162:8001/api/v1/SendSMSShahrBank"
+  username: "Zabbix"
+  password: "SH!MA-H"

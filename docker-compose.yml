@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  smsnotification:
+    image: smsnotification:v1
+    container_name: SmsNotification
+    ports:
+      - "8000:8000"
+    
