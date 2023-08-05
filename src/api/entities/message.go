@@ -6,6 +6,7 @@ type Message struct {
 	Instance    string `json:"instance,omitempty"`
 	StartedAt   string
 	EndedAt     string `json:"endedat,omitempty"`
+	Summary     string `json:"endedat,omitempty"`
 	Description string `json:"description,omitempty"`
 	Status      string
 }

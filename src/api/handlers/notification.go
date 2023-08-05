@@ -37,19 +37,17 @@ func (h *NotificationHandler) Alert(c *gin.Context) {
 }
 
 func (h *NotificationHandler) CreateMessage(data entities.Data) string {
-	st := ptime.New(data.Alerts[0].StartsAt)
-	et := ptime.New(data.Alerts[0].EndsAt)
-
-	fmt.Println(data.Alerts[0].StartsAt)
-	fmt.Println(st)
+	st := ptime.New(data.Alerts[0].StartsAt.Local())
+	et := ptime.New(data.Alerts[0].EndsAt.Local())
 
 	msg := &entities.Message{
 		AlertName:   data.GroupLabels["alertname"],
 		Severity:    data.Alerts[0].Labels["severity"],
 		Instance:    data.Alerts[0].Labels["instance"],
 		Status:      data.Alerts[0].Status,
-		StartedAt:   st.Format("yyyy/MM/dd-hh:mm:ss"),
-		EndedAt:     et.Format("yyyy/MM/dd-hh:mm:ss"),
+		StartedAt:   st.Format("yyyy/MM/dd-hh:mm:ss a"),
+		EndedAt:     et.Format("yyyy/MM/dd-hh:mm:ss a"),
+		Summary:     data.Alerts[0].Annotations["summary"],
 		Description: data.Alerts[0].Annotations["description"],
 	}
 	prefix := "**"
@@ -68,6 +66,7 @@ func (h *NotificationHandler) CreateMessage(data entities.Data) string {
 		"severity: " + msg.Severity + "\n" +
 		"Instance: " + msg.Instance + "\n" +
 		"Event time: " + msg.StartedAt + "\n" +
+		msg.Summary + "\n" +
 		msg.Description
 
 	return sendMsg
