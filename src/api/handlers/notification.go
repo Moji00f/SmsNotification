@@ -95,8 +95,8 @@ func (h *NotificationHandler) SendMessage(message string) {
 			return
 		}
 
-		// req.Header.Add("UserName", config.SmsGateWay.UserName)
-		// req.Header.Add("Password", config.SmsGateWay.Password)
+		req.Header.Add("UserName", config.SmsGateWay.UserName)
+		req.Header.Add("Password", config.SmsGateWay.Password)
 		req.Header.Add("Content-Type", "application/json")
 
 		resp, err := client.Do(req)
